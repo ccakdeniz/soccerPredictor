@@ -1,1 +1,13 @@
-<p>upcoming-games works!</p>
+<div class="mx-auto mt-4 mb-4 text-center">
+    <div *ngFor="let p of predictions" class="border border-dark rounded d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1">
+        <h6>
+            {{p.competition_cluster}} - {{p.competition_name}}
+        </h6>
+        <div>
+            {{p.home_team}} x {{p.away_team}}
+        </div>
+        <div>
+            <strong>{{p.prediction}}</strong>
+        </div>
+    </div>
+</div>
