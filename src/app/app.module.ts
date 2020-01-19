@@ -3,10 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { UpcomingGamesComponent } from './upcoming-games/upcoming-games.component';
+import { PastPredictionsComponent } from './past-predictions/past-predictions.component';
+import { SuccessRateComponent } from './success-rate/success-rate.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UpcomingGamesComponent,
+    PastPredictionsComponent,
+    SuccessRateComponent
   ],
   imports: [
     BrowserModule,
