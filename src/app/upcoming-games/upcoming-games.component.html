@@ -1,13 +1,61 @@
-<div class="mx-auto mt-4 mb-4 text-center">
-    <div *ngFor="let p of predictions" class="border border-dark rounded d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1">
-        <h6>
-            {{p.competition_cluster}} - {{p.competition_name}}
-        </h6>
-        <div>
-            {{p.home_team}} x {{p.away_team}}
+<div class="mx-auto mt-4 mb-4 text-center" [hidden]="isBusy">
+    <div *ngIf="predictions.length<1">
+        <strong>
+            <p>There are no games scheduled for next 12 hours!</p>
+            <p>Please check back later.</p>
+        </strong>
+    </div>
+    <div class="mb-4">
+        <div class="">
+            <strong>Filter Options:</strong>
+        </div>
+        <div class="d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1">
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="federationsMenu" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Federations
+                </button>
+                <div class="dropdown-menu" aria-labelledby="federationsMenu">
+                    <button class="dropdown-item" type="button" *ngFor="let f of federations"
+                        (click)="addFilter(f,'federation')">{{f}}</button>
+                </div>
+            </div>
+        </div>
+        <div class="d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1">
+            <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="countriesMenu" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Countries
+                </button>
+                <div class="dropdown-menu" aria-labelledby="countriesMenu">
+                    <button class="dropdown-item" type="button" *ngFor="let c of countries"
+                        (click)="addFilter(c,'country')">
+                        <span class="flag-icon flag-icon-{{c.countryCode|lowercase}} mr-2"></span>{{c.countryName}}
+                    </button>
+                </div>
+            </div>
         </div>
         <div>
-            <strong>{{p.prediction}}</strong>
+            <div *ngFor="let f of federationFilters" class="d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1 border border-dark rounded bg-dark text-light">
+                <span>{{f.name}}</span><span class="pl-2 text-danger" (click)="removeFilter(f,'federation')"><i class="far fa-window-close"></i></span>
+            </div>
+            <div *ngFor="let f of countriesFilters" class="d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1 border border-dark rounded bg-dark text-light">
+                <span class="flag-icon flag-icon-{{f.countryCode|lowercase}}"></span>{{f.countryName}}
+                <span class="pl-1 text-danger" (click)="removeFilter(f,'country')"><i class="far fa-window-close"></i></span>
+            </div>
+        </div>
+    </div>
+    <div *ngFor="let p of filteredPredictions"
+        class="border border-dark rounded d-inline-block mr-2 mb-2 text-left pr-1 pl-1 pt-1 pb-1">
+        <h6>
+            <span class="flag-icon flag-icon-{{p.countryCode|lowercase}}"></span>{{p.competition_cluster}} -
+            {{p.competition_name}}
+        </h6>
+        <div>
+            {{p.home_team}} vs. {{p.away_team}}
+        </div>
+        <div>
+            Prediction: <strong>{{p.prediction}}</strong>
         </div>
     </div>
 </div>

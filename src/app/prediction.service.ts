@@ -11,7 +11,7 @@ export class PredictionService {
 
   constructor(private http: HttpClient) { }
 
-  apiUrl = 'https://tasty.p.rapidapi.com';
+  apiUrl = 'https://football-prediction-api.p.rapidapi.com';
 
   GetFuturePredictions() {
     return this.http.get(this.apiUrl + '/api/v2/predictions', {
